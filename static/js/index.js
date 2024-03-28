@@ -31,7 +31,7 @@ $(document).ready(function() {
 
     var options = {
 			slidesToScroll: 1,
-			slidesToShow: 3,
+			slidesToShow: 1,
 			loop: true,
 			infinite: true,
 			autoplay: false,
@@ -76,3 +76,14 @@ $(document).ready(function() {
     bulmaSlider.attach();
 
 })
+
+
+function restartGif(imgElement) {
+  const gifSrc = imgElement.src;
+  imgElement.src = ''; // 清空src
+  imgElement.src = gifSrc; // 重新设置src，从而重启GIF
+}
+
+// 应用到所有GIF
+const allGifs = document.querySelectorAll('img[src$=".gif"]');
+allGifs.forEach(gif => restartGif(gif));
