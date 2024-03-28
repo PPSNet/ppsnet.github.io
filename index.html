@@ -72,7 +72,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://www.cs.unc.edu/~akshaypa/"
+                <a href="https://arxiv.org/abs/2403.17915"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -194,18 +194,48 @@
   </div>
 </section> -->
 
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <center><img src="./static/images/teaser_figure.png"/></center>
+      <h2 class="subtitle has-text-centered">
+        We model near-field lighting, emitted by the endoscope and reflected
+        by the surface, as Per-Pixel Shading (PPS). We use PPS features to perform depth
+        refinement (PPSNet) on clinical data using teacher-student transfer learning and a
+        PPS-informed self-supervision.
+      </h2>
+    </div>
+  </div>
+</section>
 
 <section class="section">
   <div class="container is-max-desktop">
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
+        <h2 class="title is-3">How does it work?</h2>
+        <h2 class="title is-4">Per-Pixel Shading (PPS) Representation</h2>
+        <center><img src="./static/images/PPS_representation_figure.png"/></center>
         <div class="content has-text-justified">
           <p>
-            Monocular depth estimation in endoscopy videos can enable assistive and robotic surgery to obtain better coverage of the organ and detection of various health issues. Despite promising progress on mainstream, natural image depth estimation, techniques perform poorly on endoscopy images due to a lack of strong geometric features and challenging illumination effects. In this paper, we utilize the photometric cues, i.e., the light emitted from an endoscope and reflected by the surface, to improve monocular depth estimation. We first create two novel loss functions with supervised and self-supervised variants that utilize a per-pixel shading representation. We then propose a novel depth refinement network (PPSNet) that leverages the same per-pixel shading representation. Finally, we introduce teacher-student transfer learning to produce better depth maps from both synthetic data with supervision and clinical data with self-supervision. We achieve state-of-the-art results on the C3VD dataset while estimating high-quality depth maps from clinical data. Our code, pre-trained models, and supplementary materials can be found on this project page.
+            Using depths and surface normals, we compute our proposed PPS representation. Our idea relies on the fact that the PPS is strongly correlated with the image intensity field except in regions of strong specularity and it ignores inter-reflections by only modeling direct, in-view illumination from
+            the surface to the camera. We also observe that the usage of PPS is uniform and dependable across entire datasets such as <a href="https://durrlab.github.io/C3VD/?">C3VD</a>. As a result, we can utilize PPS in both supervised and self-supervised loss function variants.
           </p>
         </div>
+        <h2 class="title is-4">Depth Refinement</h2>
+        <div class="content has-text-justified">
+          <p>
+            Additionally, our approach involves making an initial depth prediction and then refining that depth prediction with the help of both RGB features and PPS features. A full forward pass of our approach is included in the below algorithm table.
+          </p>
+        </div>
+        <center><img src="./static/images/Depth_refinement_table.png"/></center>
+        <h2 class="title is-4">Training Protocol</h2>
+        <div class="content has-text-justified">
+          <p>
+            Finally, in order to leverage both synthetic, phantom colonoscopy data and more challenging, real-world clinical data as a part of our training protocol, our approach involves training a student model on both synthetic data (e.g., C3VD) and clinical data with the guidance of a teacher model trained only on synthetic data.
+          </p>
+        </div>
+        <center><img src="./static/images/teacher_student_figure.png"/></center>
       </div>
     </div>
     <!--/ Abstract. -->
@@ -217,10 +247,28 @@
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Note</h2>
+        <h2 class="title is-3">Comparison to other methods</h2>
         <div class="content has-text-justified">
           <p>
-            This website is a work in progress. Please check back soon for updates!
+            We compare our approach with existing monocular depth estimation techniques developed for endoscopy videos by testing on the synthetic <a href="https://durrlab.github.io/C3VD/?">C3VD</a> dataset. Ours-Student trains using both <a href="https://durrlab.github.io/C3VD/?">C3VD</a> and real data. Best results are shown in bold. Second best results are underlined.
+          </p>
+        </div>
+        <center><img src="./static/images/main_result_table.png"/></center>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Additional Materials</h2>
+        <div class="content has-text-justified">
+          <p>
+            In addition to our code release which currently includes <a href="https://drive.google.com/drive/folders/17778hK9_Zk9lSrDr5EPQnmLEUwLnpblB?usp=sharing">our pre-trained models</a> and <a href="https://drive.google.com/drive/folders/1QfacGUjaD1-ByC1XvukUzu84HGdwKXhF?usp=sharing">a preprocessed version of our C3VD test split</a>, we also release <a href="https://drive.google.com/drive/folders/1TnoHUtSYxRMW4J7uTwX8C3Jwzcm2cdgL?usp=sharing">mesh examples shown in the paper</a> and <a href="https://drive.google.com/drive/folders/1A86ZOU47_hgk1AVY1Fv1Vs-1Mx4M89GW?usp=sharing">our clinical data splits</a>. The clinical dataset itself, which includes oblique and en face views, will be fully released in the near future. Please refer to <a href="https://arxiv.org/abs/2403.17915">our full paper</a> for more details, including our ablations.
           </p>
         </div>
       </div>
